@@ -1,0 +1,8 @@
+python
+jupyter
+pandas
+numpy
+scikit-learn
+plotly
+matplotlib
+tabulate
