@@ -1,62 +1,55 @@
-        # Identifiant (à conserver pour référence)
-        'Id',
-        
-        # Variables structurelles essentielles
-        'OverallQual',      # Qualité générale
-        'OverallCond',      # Condition générale
-        'YearBuilt',        # Année de construction 
-        'YearRemodAdd',     # Année de rénovation
-        
-        # Surfaces
-        'GrLivArea',        # Surface habitable
-        'TotalBsmtSF',      # Surface totale du sous-sol
-        'LotArea',          # Surface du terrain
-        
-        # Garage et extérieur
-        'GarageArea',       # Surface du garage
-        'GarageCars',       # Capacité du garage en voitures
-        'GarageYrBlt',      # Année de construction du garage
-        'GarageType',       # Type de garage
-        'GarageFinish',     # Finition du garage
-        
-        # Pièces et salles de bain
-        'FullBath',         # Salles de bain complètes
-        'HalfBath',         # Demi-salles de bain
-        'BedroomAbvGr',     # Chambres au-dessus du sol
-        'KitchenAbvGr',     # Cuisines au-dessus du sol
-     
-        # Qualité
-        'KitchenQual',      # Qualité de la cuisine
-        'ExterQual',        # Qualité extérieure
-        'ExterCond',        # Condition extérieure
-        'BsmtCond',         # Condition du sous-sol
-        'HeatingQC',        # Qualité du chauffage
-        
-        # Localisation
-        'Neighborhood',     # Quartier
-        'MSZoning',         # Zonage
-        
-        # Caractéristiques additionnelles de valeur
-        'Fireplaces',       # Nombre de cheminées
-        'FireplaceQu',      # Qualité des cheminées
-        'WoodDeckSF',       # Surface de la terrasse en bois
-        'OpenPorchSF',      # Surface du porche ouvert
-        'Foundation',       # Type de fondation
-        'CentralAir',       # Climatisation centrale
-        
-        # Variables de vente (pour l'entraînement)
+# Identifier (for reference)
+'Id',
 
-        'SaleType',         # Type de vente
-        'SaleCondition',    # Condition de vente
-         MiscFeature,        # Commonditer qui ne figure pas details
-         
-        
+# General characteristics
+'OverallQual',      # Overall quality
+'OverallCond',      # Overall condition
+'YearBuilt',        # Year built
+'YearRemodAdd',     # Year of renovation
 
-        # features creation
+# Areas
+'GrLivArea',        # Living area
+'TotalBsmtSF',      # Total basement area
+'LotArea',          # Lot area
 
-        ExteriorMat       # Combinaison Exterior1 and Exterior2 
-        NumberOfMaterial  # Nombre de materiaux
-        Condition # Condition1 + Condition2
+# Garage and exterior
+'GarageArea',       # Garage area
+'GarageCars',       # Garage capacity (in cars)
+'GarageYrBlt',      # Year garage was built
+'GarageType',       # Garage type
+'GarageFinish',     # Garage finish
 
+# Rooms and bathrooms
+'FullBath',         # Full bathrooms
+'HalfBath',         # Half bathrooms
+'BedroomAbvGr',     # Bedrooms above ground
+'KitchenAbvGr',     # Kitchens above ground
 
+# Quality
+'KitchenQual',      # Kitchen quality
+'ExterQual',        # Exterior quality
+'ExterCond',        # Exterior condition
+'BsmtCond',         # Basement condition
+'HeatingQC',        # Heating quality
 
+# Location
+'Neighborhood',     # Neighborhood
+'MSZoning',         # Zoning
+
+# Additional value characteristics
+'Fireplaces',       # Number of fireplaces
+'FireplaceQu',      # Fireplace quality
+'WoodDeckSF',       # Wood deck area
+'OpenPorchSF',      # Open porch area
+'Foundation',       # Foundation type
+'CentralAir',       # Central air conditioning
+
+# Sale variables (for training)
+'SaleType',         # Sale type
+'SaleCondition',    # Sale condition
+MiscFeature,        # Miscellaneous features not detailed
+
+# Feature creation
+Exterior        # Combination of Exterior1 and Exterior2
+Condition       # Condition1 + Condition2
+LifeSpan        # Age of the house
