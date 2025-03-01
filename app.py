@@ -9,28 +9,34 @@ import os
 st.set_page_config(page_title="ImmoSense", layout="centered", page_icon="🏠")
 
 # === Centre de la page ===
-st.markdown("<h2 style='text-align: center;'>🏠 Projet ImmoSense</h2>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>📊  Visualisez les données et les prédictions du modèle ImmoSense.📊</p>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center;'>🏠 ImmoSense</h2>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>📊  Visualize data and model performane 📊</p>", unsafe_allow_html=True)
 
 # === Description du modele ===
-st.header("Description du modèle")
-st.write("When buyers describe their dream home, they often focus on aspects like the number of bedrooms or the presence of a garden. 🌳🏠 However, many hidden factors, such as basement height or proximity to a railway 🚂, also influence the final sale price. Through a vigorous analysis, we explain how these hidden factors impact the price. 🔍💡")
+st.header("Project overview")
+st.write("""
+        When buyers describe their dream home, they often focus on aspects like the number of bedrooms or the presence of a garden.
+        🌳🏠 However, many hidden factors, such as basement height or proximity to a railway 🚂, 
+        also influence the final sale price. Through a vigorous analysis, 
+        we explain how these hidden factors impact the price. 🔍💡
+        """)
 # Ajoutez votre description ici
 
 # === Data exploration ===
-st.header("Exploration des données")
-st.write("Utilisez les données pour analyser les tendances et les inégalités dans les prix d'immobilier. ���️‍��️")
-
-
-
-st.write("we will display the insights and highlight how the selected features are relevant for the sale price prediction. Features are categorized into nine(9) parts:")
+st.header("Data exploration")
+st.write("""
+        Relevant features have been categorized into nine(9) parts. click to check insights
+        """)
 
 
 inS1, inS2, inS3, inS4, inS5, inS6, inS7, inS8, inS9 = st.tabs(["General features", "Surfaces", "Garage", "Rooms and Bathrooms", "Quality", "Location", "Additional Value Features", "Sales Variables", "Created features"])
 
 with inS1:
     st.header("General features")
-    features = ["OverallQual", "OverallCond", "YearBuilt", "YearRemodAdd"]
+    features = ['OverallQual: Overall quality',
+                'OverallCond: Overall condition',
+                'YearBuilt: Year built',
+                'YearRemodAdd:  Year of renovation']
     for feature in features:
         st.write(feature)
     st.write("Ces caractéristiques décrivent la qualité globale de la maison et son condition globale.")
