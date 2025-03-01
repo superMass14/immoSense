@@ -9,7 +9,7 @@ import os
 st.set_page_config(page_title="ImmoSense", layout="centered", page_icon="🏠")
 
 # === Centre de la page ===
-st.markdown("<h2 style='text-align: center;'>🏠 ImmoSense</h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center;'>🏠 ImmoSense 🏠</h2>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>📊  Visualize data and model performane 📊</p>", unsafe_allow_html=True)
 
 # === Description du modele ===
@@ -23,7 +23,7 @@ st.write("""
 # Ajoutez votre description ici
 
 # === Data exploration ===
-st.header("Data exploration")
+st.header("Data exploration 🔍")
 st.write("""
         Relevant features have been categorized into nine(9) parts. click to check insights
         """)
@@ -95,9 +95,6 @@ with inS5:
     }
     df_corr = pd.DataFrame(data)
     st.table(df_corr)
-
-    # === Prediction ===
-    st.image("insight_plot/qualityPlot.png", use_column_width=True)
 with inS6:
     st.header("Location")
     st.write("Neighborhood")
@@ -109,7 +106,6 @@ with inS6:
     }
     df_corr = pd.DataFrame(data)
     st.table(df_corr)
-    st.image('insight_plot/location.png', use_column_width=True) 
 with inS7:
     st.header("Additional Value Features")
     features= ["Fireplaces", "FireplaceQu", "WoodDeckSF", "OpenPorchSF", "Foundation", "CentralAir"]
@@ -166,17 +162,74 @@ with inS9:
 
 # === Prédictions ===
 
-st.header("Prédictions")
-st.write("Visualisez les données et les prédictions côte à côte pour comprendre comment le modèle fonctionne.")
+st.header("Features Visualizations 📈")
+st.write("View data and predictions side by side to understand how the model works.")
 
-tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
+
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(["General features", "Surfaces", "Garage", "Rooms and Bathrooms", "Quality", "Location", "Additional Value Features", "Sales Variables", "Created features"])
 data = np.random.randn(10, 1)
 
-tab1.subheader("A tab with a chart")
-tab1.image("insight_plot/qualityPlot.png")
+tab1.subheader("📈 General features")
+tab1.image("insight_plot/general.png")
+tab1.write("""
+We started with features that would be of most interest to potential customers, known as ‘general features’: **overall condition**, **overall quality**, **year of construction** and **year of remode**l.
+Calculating the correlation between these features and the saleprice shows that the **stronger** OverallQual is, the **higher** the price. With an average correlation of YearBuilt and YearRemodAdd , newer homes tend to be more expensive. And finally, OverallCond has an opposite influence on price.
+""")
 
-tab2.subheader("A tab with the data")
-tab2.write(data)
+tab2.subheader("📈 Surfaces")
+tab2.image("insight_plot/surface.png")
+tab2.write("Second interesting point, the surface area! this combines the above-ground living area, the total surface area in square feet of the basement and the surface area of the plot in square feet. this shows that the price increases with the surface area (trend in red).")
+
+tab3.subheader("📈 Garage")
+tab3.image("insight_plot/garage.png")
+tab3.image("insight_plot/garage1.png")
+tab3.write("""
+We are now interested in the **‘garage’** criterion, which brings together all the attributes linked to the garage: its surface area, its capacity, its year of construction, its type and its finish.
+After a study of the correlation for some of these attributes, we were able to see that GarageYrBlt has a fairly weak impact on price, but it has a strong influence on GarageArea and GarageCars, which in turn influence price.
+
+We also found that **GarageType** and **GarageFinish** had an impact on the price. For example, a garage of type BuiltIn and completely finished would give the house a very high price.
+""")
+
+tab4.subheader("📈 Rooms and Bathrooms")
+tab4.image("insight_plot/rooms_bathrooms.png")
+tab4.write("""
+The **number of bedrooms** and the **presence of bathrooms** *(full or not)* are criteria that some buyers are very particular about, and they are grouped together in Bedrooms and Bathrooms: full bathrooms, half-bathrooms, above-ground bedrooms and above-ground kitchens. With the correlation study it is clear that in general the presence of FullBath has a clear influence on price where the others *(HalfBath ,BedroomAbvG ,KitchenAbvGr)* vary, showing that they depend on other criteria to be influential.
+""")
+
+tab5.subheader("📈 Quality")
+tab5.image("insight_plot/qualityPlot.png")
+tab5.write("Here we merged Kitchen's quality, Exterior's quality and condition, basement's condition and heating quality to get the building's comfort average quality. Values have been encoded ordinally. We notice that have high price sale prices within the range of 3-4.5 (good to excellent). meanwhile houses with poor to fair quality or without one these conveniences have lower prices. We conclude having good conviences quality can influence the house's sale price")
+
+tab6.subheader("📈 Location")
+tab6.image("insight_plot/location.png")
+tab6.write("Plots aboves display prices variations depending on the area and the zone. These two are relevant feature allows us to understand the houses's price increase and decrease")
+
+tab7.subheader("📈 Additional Value Features")
+tab7.image("insight_plot/additional_value.png")
+tab7.image("insight_plot/Fireplace.png")
+tab7.write("""
+The foundation used for construction are also important when someone buys a house. The plot highlights the preference of buying a house built with **poured concrete** *(pconc)* followed the by ones built with **wood** and **stone**. This phenomenon are explain by the fact that the house is more likely to be solid with such foundations. Hence **slab** built house's have lower prices. 
+House's with excellent ***(ex)*** quality, even good are more valuable than ones with poor quality or without fireplace. This convenience can be a good feature for the model.
+""")
+
+tab8.subheader("📈 Sales Variables")
+tab8.image("insight_plot/saleVPlot.png")
+tab8.write("""
+We notice that houses sold:
+- after just being constructed and sold *(new)*,
+- with a  Low Down payment contract and low interest *(ConLw)*
+- with a Warranty Deed - Cash *(CWD)*
+are the top **3** valuable in our dataset. The more varied the sale type is, the more disproportion we have in the house prices
+""")
+
+tab9.subheader("📈 Created features")
+tab9.image("insight_plot/created_features.png")
+tab9.write("""
+In order to study the relation between the **sale price** and the **exterior** covering combined with the proximity to various **conditions**, we've encoded the categorical values using the `One-hot encoder` model then perfom a **correlation computation**.
+In this context, the small values do not reveal a no relationship between the features and the sale price but how each category influence the price. Some causes the prices to increase, other do the opposite.
+""")
+
+
 
 
 # === Affichage des graphiques ===
@@ -194,6 +247,7 @@ Let's pick the best model for our study case between:
 """)
 
 model = st.selectbox("Select the model", ["Linear Regression", "SVR", "Ridge", "Nearest neighbors regression", "Decision trees"])
+
 st.write(f"Selected model: {model}")
 
 # === Affichage des résultats ===
@@ -301,7 +355,7 @@ st.markdown("""
 
 
 # === Affichage des graphiques ===
-st.header("ImmoSense Models Visualization")
+st.header("🏠ImmoSense Visualization 📈" )
 st.image("insight_plot/model_visiualisation.png")
 
 st.write("""
@@ -409,18 +463,6 @@ In our case, if we take the `Rooms and bathrooms` category, we can say that, in 
 
 What makes the features weight study more relevant is that we notice how the features we created influence the sales price. In fact, the more material the house is built with or the better the condition is, the more the sales price increases by **307,113$**.
 """
-
-# === Final Prediction ===
-st.header("Final Prediction")
-df = pd.read_csv("data/submission.csv")
-
-st.table(df.head())
-
-st.write("""
-The final prediction is shown in the table above.
-
-Remember that this model is still a simplified version and might not be the best choice for real-world applications. However, it serves as a starting point for further analysis and improvements.
-""")
 
 # === Footer ===
 st.markdown("<hr>", unsafe_allow_html=True)
