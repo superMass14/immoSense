@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import joblib  # Pour charger un modèle pré-entraîné
 import os
 
@@ -140,6 +141,14 @@ with inS9:
     df_corr = pd.DataFrame(data)
     st.table(df_corr)
 
+    st.header("Lifespan vs SalePrice")
+    data = {
+        "Lifespan": [1.00000, -0.52335],
+        "SalePrice": [-0.52335, 1.00000]
+    }
+    df_lifespan = pd.DataFrame(data, index=["Lifespan", "SalePrice"])
+    st.table(df_lifespan)
+
     st.header("CentralAir vs SalePrice")
     data = {
         "CentralAir": ["N", "Y"],
@@ -151,51 +160,262 @@ with inS9:
 
 # === Prédictions ===
 
+st.header("Prédictions")
+st.write("Visualisez les données et les prédictions côte à côte pour comprendre comment le modèle fonctionne.")
 
-# st.header("Prédictions")
-# st.write("Voici les prédictions du modèle pour les données fournies.")
-# st.write("Vous pouvez également visualiser les données et les prédictions côte à côte.")
-# st.write("Vous pouvez également afficher les graphiques de votre choix.")
-     
+tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
+data = np.random.randn(10, 1)
 
+tab1.subheader("A tab with a chart")
+tab1.image("insight_plot/qualityPlot.png")
 
-# === Charger les données ===
-DATA_PATH = "data/submission.csv"  # Mettez ici le chemin réel de votre fichier
-MODEL_PATH = "data/submission.csv"  # Mettez ici le chemin réel de votre modèle
-VISUALISATION_PATH = "data/submission.csv" # Mettez ici le chemin réel de votre fichier
-
-# === Affichage des données et des prédictions côte à côte ===
-col1, col2, col3 = st.columns(3)
-
-
-# Vérifier si les chemins existent et charger les données et les prédictions
-with col1:
-    st.header("Données")
-    if os.path.exists(DATA_PATH):
-        df = pd.read_csv(DATA_PATH)
-        st.write(df.head())
-    else:
-        st.error(f"❌ Le fichier {DATA_PATH} est introuvable !")
-    # st.write(df)
-
-with col2:
-    st.header("Prédictions")
-    if MODEL_PATH and os.path.exists(MODEL_PATH):
-        model = pd.read_csv(MODEL_PATH)
-        st.write(model.head())
-    else:
-        st.error(f"❌ Le modèle {MODEL_PATH} est introuvable ou non spécifié !")
-with col3:
-    st.header("Visualisation")
-    if os.path.exists(VISUALISATION_PATH):
-        visualisation = pd.read_csv(VISUALISATION_PATH)
-        st.write(visualisation.head())
-    else:
-        st.error(f"❌ Le fichier {VISUALISATION_PATH} est introuvable !")
+tab2.subheader("A tab with the data")
+tab2.write(data)
 
 
 # === Affichage des graphiques ===
-st.header("Graphiques")
-st.write("Ici, vous pouvez afficher les graphiques de votre choix.")
+st.header("ImmoSense Models")
+
 # Ajoutez vos graphiques ici
 
+st.write("""
+Let's pick the best model for our study case between:
+- **Linear Regression**
+- **SVR**
+- **Ridge**
+- **Nearest neighbors regression**
+- **Decision trees**
+""")
+
+model = st.selectbox("Select the model", ["Linear Regression", "SVR", "Ridge", "Nearest neighbors regression", "Decision trees"])
+st.write(f"Selected model: {model}")
+
+# === Affichage des résultats ===
+
+st.markdown("""
+<style type="text/css">
+#T_08cb6_row0_col0 {
+  background-color: #4a63d3;
+  color: #f1f1f1;
+}
+#T_08cb6_row0_col1, #T_08cb6_row1_col2, #T_08cb6_row2_col3, #T_08cb6_row3_col1, #T_08cb6_row4_col0 {
+  background-color: #3b4cc0;
+  color: #f1f1f1;
+}
+#T_08cb6_row0_col2 {
+  background-color: #c53334;
+  color: #f1f1f1;
+}
+#T_08cb6_row0_col3, #T_08cb6_row3_col3 {
+  background-color: #edd1c2;
+  color: #000000;
+}
+#T_08cb6_row1_col0, #T_08cb6_row1_col1, #T_08cb6_row4_col2, #T_08cb6_row4_col3 {
+  background-color: #b40426;
+  color: #f1f1f1;
+}
+#T_08cb6_row1_col3 {
+  background-color: #5b7ae5;
+  color: #f1f1f1;
+}
+#T_08cb6_row2_col0 {
+  background-color: #de614d;
+  color: #f1f1f1;
+}
+#T_08cb6_row2_col1 {
+  background-color: #f3c7b1;
+  color: #000000;
+}
+#T_08cb6_row2_col2 {
+  background-color: #6788ee;
+  color: #f1f1f1;
+}
+#T_08cb6_row3_col0 {
+  background-color: #4055c8;
+  color: #f1f1f1;
+}
+#T_08cb6_row3_col2 {
+  background-color: #ba162b;
+  color: #f1f1f1;
+}
+#T_08cb6_row4_col1 {
+  background-color: #f5c2aa;
+  color: #000000;
+}
+</style>
+<table id="T_08cb6">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_08cb6_level0_col0" class="col_heading level0 col0" >RMSE</th>
+      <th id="T_08cb6_level0_col1" class="col_heading level0 col1" >Mae</th>
+      <th id="T_08cb6_level0_col2" class="col_heading level0 col2" >R2</th>
+      <th id="T_08cb6_level0_col3" class="col_heading level0 col3" >Scores</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_08cb6_level0_row0" class="row_heading level0 row0" >Linear_regression</th>
+      <td id="T_08cb6_row0_col0" class="data row0 col0" >46939.230000</td>
+      <td id="T_08cb6_row0_col1" class="data row0 col1" >21099.120000</td>
+      <td id="T_08cb6_row0_col2" class="data row0 col2" >0.671000</td>
+      <td id="T_08cb6_row0_col3" class="data row0 col3" >0.900384</td>
+    </tr>
+    <tr>
+      <th id="T_08cb6_level0_row1" class="row_heading level0 row1" >KNR</th>
+      <td id="T_08cb6_row1_col0" class="data row1 col0" >54423.780000</td>
+      <td id="T_08cb6_row1_col1" class="data row1 col1" >32000.570000</td>
+      <td id="T_08cb6_row1_col2" class="data row1 col2" >0.558000</td>
+      <td id="T_08cb6_row1_col3" class="data row1 col3" >0.791325</td>
+    </tr>
+    <tr>
+      <th id="T_08cb6_level0_row2" class="row_heading level0 row2" >SVR</th>
+      <td id="T_08cb6_row2_col0" class="data row2 col0" >53404.140000</td>
+      <td id="T_08cb6_row2_col1" class="data row2 col1" >27773.890000</td>
+      <td id="T_08cb6_row2_col2" class="data row2 col2" >0.575000</td>
+      <td id="T_08cb6_row2_col3" class="data row2 col3" >0.766424</td>
+    </tr>
+    <tr>
+      <th id="T_08cb6_level0_row3" class="row_heading level0 row3" >Ridge</th>
+      <td id="T_08cb6_row3_col0" class="data row3 col0" >46696.640000</td>
+      <td id="T_08cb6_row3_col1" class="data row3 col1" >21058.130000</td>
+      <td id="T_08cb6_row3_col2" class="data row3 col2" >0.675000</td>
+      <td id="T_08cb6_row3_col3" class="data row3 col3" >0.899800</td>
+    </tr>
+    <tr>
+      <th id="T_08cb6_level0_row4" class="row_heading level0 row4" >Decision</th>
+      <td id="T_08cb6_row4_col0" class="data row4 col0" >46512.010000</td>
+      <td id="T_08cb6_row4_col1" class="data row4 col1" >27952.290000</td>
+      <td id="T_08cb6_row4_col2" class="data row4 col2" >0.677000</td>
+      <td id="T_08cb6_row4_col3" class="data row4 col3" >0.999996</td>
+    </tr>
+  </tbody>
+</table>
+""", unsafe_allow_html=True)
+
+
+# === Affichage des graphiques ===
+st.header("ImmoSense Models Visualization")
+st.image("insight_plot/model_visiualisation.png")
+
+st.write("""
+The plot above shows how the model learns. The 'red dots' represent real data used for training. The 'blue line' represents the prediction.
+The fluctuation highlights the model's error (over prediction/under prediction). Overall, we have a good fluctuation. We assume that ImmoSense is well trained.
+""")
+
+
+# === Affichage des poids des features ===
+st.header("Feature's weight")
+st.write("* Let's peek at **feature's weight**. This study will show us how each chosen feature **impacts** in the **model's precision**.")
+
+html_code = """
+<style type="text/css">
+#T_9c7bc_row0_col0 {
+  background-color: #3b4cc0;
+  color: #f1f1f1;
+}
+#T_9c7bc_row1_col0 {
+  background-color: #4961d2;
+  color: #f1f1f1;
+}
+#T_9c7bc_row2_col0 {
+  background-color: #5977e3;
+  color: #f1f1f1;
+}
+#T_9c7bc_row3_col0 {
+  background-color: #81a4fb;
+  color: #f1f1f1;
+}
+#T_9c7bc_row4_col0 {
+  background-color: #89acfd;
+  color: #000000;
+}
+#T_9c7bc_row5_col0 {
+  background-color: #e6d7cf;
+  color: #000000;
+}
+#T_9c7bc_row6_col0 {
+  background-color: #ead5c9;
+  color: #000000;
+}
+#T_9c7bc_row7_col0 {
+  background-color: #e36b54;
+  color: #f1f1f1;
+}
+#T_9c7bc_row8_col0 {
+  background-color: #b40426;
+  color: #f1f1f1;
+}
+</style>
+<table id="T_9c7bc">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_9c7bc_level0_col0" class="col_heading level0 col0" >Weigh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_9c7bc_level0_row0" class="row_heading level0 row0" >Surfaces</th>
+      <td id="T_9c7bc_row0_col0" class="data row0 col0" >88$</td>
+    </tr>
+    <tr>
+      <th id="T_9c7bc_level0_row1" class="row_heading level0 row1" >General features</th>
+      <td id="T_9c7bc_row1_col0" class="data row1 col0" >14970$</td>
+    </tr>
+    <tr>
+      <th id="T_9c7bc_level0_row2" class="row_heading level0 row2" >Rooms and bathrooms</th>
+      <td id="T_9c7bc_row2_col0" class="data row2 col0" >30840$</td>
+    </tr>
+    <tr>
+      <th id="T_9c7bc_level0_row3" class="row_heading level0 row3" >Garage</th>
+      <td id="T_9c7bc_row3_col0" class="data row3 col0" >66511$</td>
+    </tr>
+    <tr>
+      <th id="T_9c7bc_level0_row4" class="row_heading level0 row4" >Additional feature value</th>
+      <td id="T_9c7bc_row4_col0" class="data row4 col0" >73303$</td>
+    </tr>
+    <tr>
+      <th id="T_9c7bc_level0_row5" class="row_heading level0 row5" >Sales variable</th>
+      <td id="T_9c7bc_row5_col0" class="data row5 col0" >165330$</td>
+    </tr>
+    <tr>
+      <th id="T_9c7bc_level0_row6" class="row_heading level0 row6" >Quality</th>
+      <td id="T_9c7bc_row6_col0" class="data row6 col0" >169704$</td>
+    </tr>
+    <tr>
+      <th id="T_9c7bc_level0_row7" class="row_heading level0 row7" >Location</th>
+      <td id="T_9c7bc_row7_col0" class="data row7 col0" >262327$</td>
+    </tr>
+    <tr>
+      <th id="T_9c7bc_level0_row8" class="row_heading level0 row8" >Created features</th>
+      <td id="T_9c7bc_row8_col0" class="data row8 col0" >307113$</td>
+    </tr>
+  </tbody>
+</table>
+"""
+st.markdown(html_code, unsafe_allow_html=True)
+
+"""
+Each coefficient represents the sample's increase effect (or decrease for negative coefficients) on the target (SalePrice).
+
+In our case, if we take the `Rooms and bathrooms` category, we can say that, in general, each supplementary room or bathroom increases the house's price by **30,840$**. Same for the other categories.
+
+What makes the features weight study more relevant is that we notice how the features we created influence the sales price. In fact, the more material the house is built with or the better the condition is, the more the sales price increases by **307,113$**.
+"""
+
+# === Final Prediction ===
+st.header("Final Prediction")
+df = pd.read_csv("data/submission.csv")
+
+st.table(df.head())
+
+st.write("""
+The final prediction is shown in the table above.
+
+Remember that this model is still a simplified version and might not be the best choice for real-world applications. However, it serves as a starting point for further analysis and improvements.
+""")
+
+# === Footer ===
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>🏠 Projet ImmoSense - JARVIS TEAM 🏠</p>", unsafe_allow_html=True)
