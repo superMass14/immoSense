@@ -20,10 +20,14 @@ See the [EDA file](notebook/main.ipynb) for detailed exploratory data analysis a
         | |_____📄test.csv
         | |_____📄train.csv
         |
+        |_📂insight_plot
+        | |_____(*🗺️ plots.pnd....)
+        |
         |_📂notebook
         | |________📄keyFactor.txt
         | |________📄main.ipynb
         |
+        |_⚙️ app.py
         |_📄README.md
         |_📄requirements.txt
         
@@ -35,8 +39,8 @@ See the [EDA file](notebook/main.ipynb) for detailed exploratory data analysis a
 * then run these following commands
 
 ```bash
-git clone https://learn.zone01dakar.sn/git/mthiaw/kaggle-titanic.git
-cd kaggle-titanic
+git clone https://github.com/superMass14/immoSense.git
+cd immoSense
 conda create --name immoSense --file requirements.txt
 conda activate immoSense
 code .
