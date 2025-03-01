@@ -7,3 +7,5 @@ plotly
 matplotlib
 tabulate
 colorama
+seaborn
+streamlit
