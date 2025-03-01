@@ -46,6 +46,8 @@ conda activate immoSense
 code .
 ```
 
+you can check our dashborad [here](https://immosense-deploy-rrczb2nkcrhslqchjtdyrc.streamlit.app/)
+
 ## Acknowledgments 🎉
 
 * **Organizator** 🤝  
