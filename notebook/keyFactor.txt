@@ -12,7 +12,7 @@
 'TotalBsmtSF',      # Total basement area
 'LotArea',          # Lot area
 
-# Garage and exterior
+# Garage
 'GarageArea',       # Garage area
 'GarageCars',       # Garage capacity (in cars)
 'GarageYrBlt',      # Year garage was built
