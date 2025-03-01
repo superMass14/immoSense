@@ -12,7 +12,7 @@ When buyers describe their dream home, they often focus on aspects like the numb
 
 See the [EDA file](notebook/main.ipynb) for detailed exploratory data analysis and model selection insights. 📈🤓
 
-## 📁 File System (you can click to navigate)
+## 📁 File System
 
         |_📂data
         | |_____📄data_description.txt
