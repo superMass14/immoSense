@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib  # Pour charger un modèle pré-entraîné
-import os
 
 
 # === Configuration de la page ===
@@ -23,7 +21,7 @@ st.write("""
 # Ajoutez votre description ici
 
 # === Data exploration ===
-st.title("Data exploration 🔍")
+st.title("1️⃣ Data exploration 🔍")
 st.write("""
         Relevant features have been categorized into nine(9) parts. click to check insights
         """)
@@ -271,139 +269,36 @@ with inS9:
 
 
 # === Affichage des graphiques ===
-st.title("Model selection")
+st.title("2️⃣ Model selection")
 
 # Ajoutez vos graphiques ici
 
 st.write("""
-Let's pick the best model for our study case between:
-- **Linear Regression**
-- **SVR**
-- **Ridge**
-- **Nearest neighbors regression**
-- **Decision trees**
+Let's pick the best model for our study case between.
+pick a model to check performance
 """)
 
-model = st.selectbox("Select the model", ["Linear Regression", "SVR", "Ridge", "Nearest neighbors regression", "Decision trees"])
+model = st.multiselect("Select the model", ["Linear Regression", "SVR", "Ridge", "Nearest neighbors regression", "Decision trees"])
 
-st.write(f"Selected model: {model}")
+st.table(pd.read_csv("insight_plot/model_perf.csv", index_col="model").loc[model, :])
 
 # === Affichage des résultats ===
 
-st.markdown("""
-<style type="text/css">
-#T_08cb6_row0_col0 {
-  background-color: #4a63d3;
-  color: #f1f1f1;
-}
-#T_08cb6_row0_col1, #T_08cb6_row1_col2, #T_08cb6_row2_col3, #T_08cb6_row3_col1, #T_08cb6_row4_col0 {
-  background-color: #3b4cc0;
-  color: #f1f1f1;
-}
-#T_08cb6_row0_col2 {
-  background-color: #c53334;
-  color: #f1f1f1;
-}
-#T_08cb6_row0_col3, #T_08cb6_row3_col3 {
-  background-color: #edd1c2;
-  color: #000000;
-}
-#T_08cb6_row1_col0, #T_08cb6_row1_col1, #T_08cb6_row4_col2, #T_08cb6_row4_col3 {
-  background-color: #b40426;
-  color: #f1f1f1;
-}
-#T_08cb6_row1_col3 {
-  background-color: #5b7ae5;
-  color: #f1f1f1;
-}
-#T_08cb6_row2_col0 {
-  background-color: #de614d;
-  color: #f1f1f1;
-}
-#T_08cb6_row2_col1 {
-  background-color: #f3c7b1;
-  color: #000000;
-}
-#T_08cb6_row2_col2 {
-  background-color: #6788ee;
-  color: #f1f1f1;
-}
-#T_08cb6_row3_col0 {
-  background-color: #4055c8;
-  color: #f1f1f1;
-}
-#T_08cb6_row3_col2 {
-  background-color: #ba162b;
-  color: #f1f1f1;
-}
-#T_08cb6_row4_col1 {
-  background-color: #f5c2aa;
-  color: #000000;
-}
-</style>
-<table id="T_08cb6">
-  <thead>
-    <tr>
-      <th class="blank level0" >&nbsp;</th>
-      <th id="T_08cb6_level0_col0" class="col_heading level0 col0" >RMSE</th>
-      <th id="T_08cb6_level0_col1" class="col_heading level0 col1" >Mae</th>
-      <th id="T_08cb6_level0_col2" class="col_heading level0 col2" >R2</th>
-      <th id="T_08cb6_level0_col3" class="col_heading level0 col3" >Scores</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th id="T_08cb6_level0_row0" class="row_heading level0 row0" >Linear_regression</th>
-      <td id="T_08cb6_row0_col0" class="data row0 col0" >46939.230000</td>
-      <td id="T_08cb6_row0_col1" class="data row0 col1" >21099.120000</td>
-      <td id="T_08cb6_row0_col2" class="data row0 col2" >0.671000</td>
-      <td id="T_08cb6_row0_col3" class="data row0 col3" >0.900384</td>
-    </tr>
-    <tr>
-      <th id="T_08cb6_level0_row1" class="row_heading level0 row1" >KNR</th>
-      <td id="T_08cb6_row1_col0" class="data row1 col0" >54423.780000</td>
-      <td id="T_08cb6_row1_col1" class="data row1 col1" >32000.570000</td>
-      <td id="T_08cb6_row1_col2" class="data row1 col2" >0.558000</td>
-      <td id="T_08cb6_row1_col3" class="data row1 col3" >0.791325</td>
-    </tr>
-    <tr>
-      <th id="T_08cb6_level0_row2" class="row_heading level0 row2" >SVR</th>
-      <td id="T_08cb6_row2_col0" class="data row2 col0" >53404.140000</td>
-      <td id="T_08cb6_row2_col1" class="data row2 col1" >27773.890000</td>
-      <td id="T_08cb6_row2_col2" class="data row2 col2" >0.575000</td>
-      <td id="T_08cb6_row2_col3" class="data row2 col3" >0.766424</td>
-    </tr>
-    <tr>
-      <th id="T_08cb6_level0_row3" class="row_heading level0 row3" >Ridge</th>
-      <td id="T_08cb6_row3_col0" class="data row3 col0" >46696.640000</td>
-      <td id="T_08cb6_row3_col1" class="data row3 col1" >21058.130000</td>
-      <td id="T_08cb6_row3_col2" class="data row3 col2" >0.675000</td>
-      <td id="T_08cb6_row3_col3" class="data row3 col3" >0.899800</td>
-    </tr>
-    <tr>
-      <th id="T_08cb6_level0_row4" class="row_heading level0 row4" >Decision</th>
-      <td id="T_08cb6_row4_col0" class="data row4 col0" >46512.010000</td>
-      <td id="T_08cb6_row4_col1" class="data row4 col1" >27952.290000</td>
-      <td id="T_08cb6_row4_col2" class="data row4 col2" >0.677000</td>
-      <td id="T_08cb6_row4_col3" class="data row4 col3" >0.999996</td>
-    </tr>
-  </tbody>
-</table>
-""", unsafe_allow_html=True)
 
 
 # === Affichage des graphiques ===
-st.header("🏠ImmoSense Visualization 📈" )
+st.title("3️⃣ 🏠 ImmoSense model visualization" )
 st.image("insight_plot/model_visiualisation.png")
 
-st.write("""
+st.markdown("""
+after analyzing the performances, ImmoSense's model is : `Ridge_regression`.
 The plot above shows how the model learns. The 'red dots' represent real data used for training. The 'blue line' represents the prediction.
 The fluctuation highlights the model's error (over prediction/under prediction). Overall, we have a good fluctuation. We assume that ImmoSense is well trained.
 """)
 
 
 # === Affichage des poids des features ===
-st.header("Feature's weight")
+st.title("4️⃣ 🏋🏽‍♂️ Feature's weight")
 st.write("* Let's peek at **feature's weight**. This study will show us how each chosen feature **impacts** in the **model's precision**.")
 
 html_code = """
@@ -494,14 +389,6 @@ html_code = """
 """
 st.markdown(html_code, unsafe_allow_html=True)
 
-"""
-Each coefficient represents the sample's increase effect (or decrease for negative coefficients) on the target (SalePrice).
-
-In our case, if we take the `Rooms and bathrooms` category, we can say that, in general, each supplementary room or bathroom increases the house's price by **30,840$**. Same for the other categories.
-
-What makes the features weight study more relevant is that we notice how the features we created influence the sales price. In fact, the more material the house is built with or the better the condition is, the more the sales price increases by **307,113$**.
-"""
-
 # === Footer ===
 st.markdown("<hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center;'>🏠 Projet ImmoSense - JARVIS TEAM 🏠</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>🏠 ImmoSense - JARVIS TEAM 🏠</p>", unsafe_allow_html=True)
